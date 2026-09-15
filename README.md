@@ -13,6 +13,10 @@ SengokuWarSim/                            Unity プロジェクト
   Assets/Tests/EditMode/                  NUnit テスト (Sim 層)
   Blender/make_villager.py                村人 FBX 生成スクリプト
 tools/                                    .meta 生成、Unity なしでの Sim ビルド・テスト、構文チェック
+SengokuLife/                              Unreal Engine 5.8 C++ プロジェクト (T001-A: Module 基盤のみ)
+  Source/SengokuSim/                      Actor / Engine 非依存の Simulation 層 (依存は Core のみ)
+  Source/SengokuLife/                     ゲーム側 Runtime Module (SengokuLife -> SengokuSim のみ許可)
+  tools/build_sengokulife_mac.sh          macOS での Development Editor 通常ビルド
 ```
 
 ## 遊び方

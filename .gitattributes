@@ -1,0 +1,4 @@
+# Unreal Engine binary assets (SengokuLife/) go through Git LFS.
+# Run `git lfs install` once per clone (the hooks are not committed).
+SengokuLife/**/*.uasset filter=lfs diff=lfs merge=lfs -text
+SengokuLife/**/*.umap   filter=lfs diff=lfs merge=lfs -text

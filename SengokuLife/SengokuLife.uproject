@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.8",
+	"Category": "",
+	"Description": "SengokuLife - Sengoku-era life simulation. SengokuSim is the engine-independent simulation layer; SengokuLife is the game (Unreal world) layer.",
+	"Modules": [
+		{
+			"Name": "SengokuSim",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "SengokuLife",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"SengokuSim"
+			]
+		}
+	]
+}

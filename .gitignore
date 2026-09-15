@@ -34,3 +34,26 @@ TestResults.xml
 *.blend1
 *.blend2
 __pycache__/
+
+# Unreal Engine (project lives in SengokuLife/)
+SengokuLife/Binaries/
+SengokuLife/DerivedDataCache/
+SengokuLife/Intermediate/
+SengokuLife/Saved/
+SengokuLife/Plugins/*/Binaries/
+SengokuLife/Plugins/*/Intermediate/
+SengokuLife/.vs/
+SengokuLife/.vscode/
+SengokuLife/.idea/
+SengokuLife/*.xcworkspace/
+SengokuLife/*.xcodeproj/
+SengokuLife/*.code-workspace
+SengokuLife/Makefile
+SengokuLife/CMakeLists.txt
+SengokuLife/compile_commands.json
+*.sdf
+*.opensdf
+*.ipch
+# The Unity rules above ignore every "Build/" directory. Unreal keeps per-platform
+# resources (icons, entitlements, ...) in <Project>/Build/, so re-include it.
+!SengokuLife/Build/
