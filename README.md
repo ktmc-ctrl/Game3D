@@ -1,4 +1,13 @@
-# Game3D ― 戦国村人合戦 (SengokuWarSim)
+# Game3D
+
+このリポジトリには 2 つのプロジェクトが入っている。
+
+- `SengokuWarSim/` ― 戦国村人合戦。Unity 2022.3 LTS。以下に説明。
+- `GodotOpenWorld/` ― オープンワールド探索プロトタイプ。Godot 4.3 以降。詳細は [GodotOpenWorld/README.md](GodotOpenWorld/README.md)。
+
+---
+
+# 戦国村人合戦 (SengokuWarSim)
 
 戦国時代の村人同士が田畑を挟んで戦う 3D 戦争シミュレーション。Unity 2022.3 LTS 用プロジェクトと、
 村人モデルを生成する Blender スクリプト、Unity/Blender 開発用の Claude Code スキルを含む。

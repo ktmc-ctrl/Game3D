@@ -34,3 +34,7 @@ TestResults.xml
 *.blend1
 *.blend2
 __pycache__/
+
+# Godot (project lives in GodotOpenWorld/)
+**/.godot/
+*.import

@@ -1,0 +1,120 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Resource" path="res://data/player/movement_config.tres" id="2_config"]
+[ext_resource type="Script" path="res://scripts/player/player_sensors.gd" id="3_sensors"]
+[ext_resource type="Script" path="res://scripts/player/stamina_component.gd" id="4_stamina"]
+[ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="5_sm"]
+[ext_resource type="Script" path="res://scripts/player/states/state_idle.gd" id="6_idle"]
+[ext_resource type="Script" path="res://scripts/player/states/state_move.gd" id="7_move"]
+[ext_resource type="Script" path="res://scripts/player/states/state_jump.gd" id="8_jump"]
+[ext_resource type="Script" path="res://scripts/player/states/state_fall.gd" id="9_fall"]
+[ext_resource type="Script" path="res://scripts/player/states/state_climb.gd" id="10_climb"]
+[ext_resource type="Script" path="res://scripts/player/states/state_mantle.gd" id="11_mantle"]
+[ext_resource type="Script" path="res://scripts/player/states/state_glide.gd" id="12_glide"]
+[ext_resource type="Script" path="res://scripts/player/states/state_swim.gd" id="13_swim"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+albedo_color = Color(0.85, 0.55, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nose"]
+size = Vector3(0.2, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nose"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_water"]
+radius = 0.25
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_player")
+config = ExtResource("2_config")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Nose" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.45)
+mesh = SubResource("BoxMesh_nose")
+surface_material_override/0 = SubResource("StandardMaterial3D_nose")
+
+[node name="Sensors" type="Node3D" parent="."]
+script = ExtResource("3_sensors")
+
+[node name="WallRayHigh" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -0.9)
+collision_mask = 1
+
+[node name="WallRayLow" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+target_position = Vector3(0, 0, -0.9)
+collision_mask = 1
+
+[node name="LedgeRay" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.9)
+target_position = Vector3(0, -1.7, 0)
+collision_mask = 9
+
+[node name="GroundRay" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+target_position = Vector3(0, -100, 0)
+collision_mask = 9
+
+[node name="WaterSensor" type="Area3D" parent="Sensors"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensors/WaterSensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("SphereShape3D_water")
+
+[node name="Stamina" type="Node" parent="."]
+script = ExtResource("4_stamina")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("5_sm")
+initial_state_name = &"Idle"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("6_idle")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("7_move")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("8_jump")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("9_fall")
+
+[node name="Climb" type="Node" parent="StateMachine"]
+script = ExtResource("10_climb")
+
+[node name="Mantle" type="Node" parent="StateMachine"]
+script = ExtResource("11_mantle")
+
+[node name="Glide" type="Node" parent="StateMachine"]
+script = ExtResource("12_glide")
+
+[node name="Swim" type="Node" parent="StateMachine"]
+script = ExtResource("13_swim")

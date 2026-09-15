@@ -1,0 +1,104 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/water_volume.tscn" id="1_water"]
+
+[sub_resource type="StandardMaterial3D" id="mat_ground"]
+albedo_color = Color(0.45, 0.6, 0.35, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_rock"]
+albedo_color = Color(0.55, 0.55, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_slope"]
+albedo_color = Color(0.7, 0.6, 0.45, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_noclimb"]
+albedo_color = Color(0.8, 0.25, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_sand"]
+albedo_color = Color(0.8, 0.75, 0.55, 1)
+
+[node name="TestMap" type="Node3D"]
+
+[node name="Terrain" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(160, 2, 160)
+material = SubResource("mat_ground")
+
+[node name="PondCut" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -1, 30)
+operation = 2
+size = Vector3(20, 6, 20)
+
+[node name="PondFloor" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -4.5, 30)
+size = Vector3(20, 1, 20)
+material = SubResource("mat_sand")
+
+[node name="Beach" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 30, -2.86, 26.1)
+use_collision = true
+size = Vector3(10, 1, 14)
+material = SubResource("mat_sand")
+
+[node name="Water" parent="." instance=ExtResource("1_water")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -0.5, 30)
+size = Vector2(20, 20)
+depth = 3.5
+
+[node name="Tower" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -30)
+use_collision = true
+size = Vector3(4, 15, 4)
+material = SubResource("mat_rock")
+
+[node name="Cliff" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -20)
+use_collision = true
+size = Vector3(10, 5, 10)
+material = SubResource("mat_rock")
+
+[node name="LowWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.6, -10)
+use_collision = true
+size = Vector3(6, 1.2, 1)
+material = SubResource("mat_rock")
+
+[node name="Step" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.25, -4)
+use_collision = true
+size = Vector3(6, 0.5, 1)
+material = SubResource("mat_rock")
+
+[node name="MidWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, -18)
+use_collision = true
+size = Vector3(6, 3, 1)
+material = SubResource("mat_rock")
+
+[node name="NoClimbWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2, -10)
+use_collision = true
+collision_layer = 8
+size = Vector3(6, 4, 1)
+material = SubResource("mat_noclimb")
+
+[node name="Slope30" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -32, 3.067, -12)
+use_collision = true
+size = Vector3(8, 1, 14)
+material = SubResource("mat_slope")
+
+[node name="Slope50" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.642788, -0.766044, 0, 0.766044, 0.642788, -42, 5.041, -12)
+use_collision = true
+size = Vector3(8, 1, 14)
+material = SubResource("mat_slope")
+
+[node name="Slope70" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.34202, -0.939693, 0, 0.939693, 0.34202, -52, 6.407, -12)
+use_collision = true
+size = Vector3(8, 1, 14)
+material = SubResource("mat_slope")
