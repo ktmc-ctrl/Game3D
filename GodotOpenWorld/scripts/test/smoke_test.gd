@@ -20,6 +20,11 @@ func _ready() -> void:
 func _run() -> void:
 	await _wait(60)
 	_expect(_state() == &"Idle", "starts in Idle (got %s)" % _state())
+	_expect(_player.camera_rig != null, "player.camera_rig resolved")
+	_expect(_player.camera_rig != null and _player.camera_rig.target == _player, "camera_rig.target resolved")
+	var hud := _player.get_parent().get_node("DebugHud")
+	_expect(hud.player == _player, "debug_hud.player resolved")
+	_expect(hud.get_node("%StateLabel").text.contains("Idle"), "debug hud shows state (got '%s')" % hud.get_node("%StateLabel").text)
 
 	# 歩き
 	Input.action_press("move_forward")

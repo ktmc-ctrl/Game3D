@@ -24,7 +24,7 @@ use_collision = true
 
 [node name="Ground" type="CSGBox3D" parent="Terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-size = Vector3(160, 2, 160)
+size = Vector3(600, 2, 600)
 material = SubResource("mat_ground")
 
 [node name="PondCut" type="CSGBox3D" parent="Terrain"]
